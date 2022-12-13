@@ -68,7 +68,7 @@ orders['Days_to_Ship'].describe()
 ```
 
 <p align="center">
-<img width="600" src="/Figures/01.png" alt="Figure 01">
+<img width="400" src="/Figures/01.png" alt="Figure 01">
 </p>
 
 Using the describe() function it is possible to check interesting statistics regarding column values, such as sum, average, etc.
@@ -78,7 +78,7 @@ orders['Late_Days'].describe()
 ```
 
 <p align="center">
-<img width="600" src="/Figures/02.png" alt="Figure 02">
+<img width="400" src="/Figures/02.png" alt="Figure 02">
 </p>
 
 Focusing only on orders that are late, we can filter our data and create a late_orders table that contains only orders where orders were sent on or after RequiredDate. Thus, we exclude all rows that have positive values for the Late_Days parameter with the drop() function.
@@ -89,7 +89,7 @@ late_orders
 ```
 
 <p align="center">
-<img width="600" src="/Figures/03.png" alt="Figure 03">
+<img width="1000" src="/Figures/03.png" alt="Figure 03">
 </p>
 
 The next step is to exclude all columns that are not useful to us for this analysis.
@@ -121,7 +121,7 @@ late_orders['ShipVia'].value_counts()
 ```
 
 <p align="center">
-<img width="600" src="/Figures/06.png" alt="Figure 06">
+<img width="400" src="/Figures/06.png" alt="Figure 06">
 </p>
 
 We can do the same to identify the number of delay occurrences in each country during the analysis period.
@@ -131,7 +131,7 @@ late_orders['ShipCountry'].value_counts()
 ```
 
 <p align="center">
-<img width="600" src="/Figures/07.png" alt="Figure 07">
+<img width="400" src="/Figures/07.png" alt="Figure 07">
 </p>
 
 Now, for a better visualization of the data, it is interesting to use the graph plot. The first deals with the relationship between the ShipVia parameters, corresponding to the identification of the companies transporting the products (companies 1, 2 and 3), and the second is the number of days of delay. In this way, we use the mean() function to calculate the average number of days late for each company and plot the result through a bar graph. Thus, the average delay in company 1 is 8 days, in company 2 it is approximately 4.5 days and in company 3 it is approximately 5.5 days.
@@ -141,7 +141,7 @@ late_orders.groupby(late_orders['ShipVia'])["Late_Days"].mean().plot(kind="bar",
 ```
 
 <p align="center">
-<img width="600" src="/Figures/08.png" alt="Figure 08">
+<img width="400" src="/Figures/08.png" alt="Figure 08">
 </p>
 
 Finally, we have the comparison plot between the number of occurrences of order delays in each country (in green) and the average of days of delay related to this amount of delays (in red).
@@ -152,7 +152,7 @@ late_orders['ShipCountry'].value_counts().plot(kind="bar",rot=60,color='g',legen
 ```
 
 <p align="center">
-<img width="600" src="/Figures/09.png" alt="Figure 09">
+<img width="400" src="/Figures/09.png" alt="Figure 09">
 </p>
 
 Now, let's try to extract some information from the correlations between the existing parameters in the orders table and try to predict how many days an order takes to be sent to the customer. First, let's convert the ShipCountry parameter to a numeric variable. We can transform each country into a value, but we will have many different values and few occurrences for each value. So let's perform this transformation by region, so 0 is equivalent to South America, 1 to North and Central America, and 2 to Europe. For this, we use the replace() function.
@@ -188,7 +188,7 @@ X
 ```
 
 <p align="center">
-<img width="600" src="/Figures/12.png" alt="Figure 12">
+<img width="500" src="/Figures/12.png" alt="Figure 12">
 </p>
 
 ```
@@ -196,7 +196,7 @@ y
 ```
 
 <p align="center">
-<img width="600" src="/Figures/13.png" alt="Figure 13">
+<img width="200" src="/Figures/13.png" alt="Figure 13">
 </p>
 
 Let's separate the data into two groups: training data and test data. For this, we will use train_test_split.
@@ -229,7 +229,7 @@ print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_p
 ```
 
 <p align="center">
-<img width="600" src="/Figures/14.png" alt="Figure 14">
+<img width="500" src="/Figures/14.png" alt="Figure 14">
 </p>
 
 Therefore, the forecast is having an absolute error of approximately 4 to 5 days when calculating how long it would take for the order to be shipped. It is worth mentioning that several different models were used to find which model best adapted to the data set. In total, 26 different models were applied. Other models presented results close to or equal to those of Random Forest, but to make this application a little more didactic and easy to understand for those who do not have much knowledge, we chose to use only Random Forest to present the results.
